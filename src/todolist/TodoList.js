@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import AddList from './component/AddList'
 
 class TodoList extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class TodoList extends Component {
 
     this.WatchInput = this.WatchInput.bind(this)
     this.SaveData = this.SaveData.bind(this)
+    // this.DelData = this.DelData.bind(this)
   }
 
   render() { 
@@ -26,18 +28,7 @@ class TodoList extends Component {
           />
           <button onClick={this.SaveData}>增加</button>
         </div>
-        {/* 
-          ==== 列表渲染 ====
-          表达式必须放在花括号内
-        */}
-        {
-           this.state.list.map((item, index) => {
-            return (
-              <div key={index+item}>{item}</div>
-            )
-          })
-        }
-        {/* <div>{this.state.inputValue}</div> */}
+        <AddList list={this.state.list}/>
       </Fragment>
     )
   }
@@ -57,6 +48,15 @@ class TodoList extends Component {
         this.state.inputValue
       ],
       inputValue: ''
+    })
+  }
+
+  //删除方法
+  DelData (index) {
+    let list = this.state.list
+    list.splice(index,1)
+    this.setState({
+      list: list
     })
   }
 }
