@@ -10,9 +10,9 @@ class TodoList extends Component {
       list: []
     }
 
-    this.WatchInput = this.WatchInput.bind(this)
-    this.SaveData = this.SaveData.bind(this)
-    // this.DelData = this.DelData.bind(this)
+    this.watchInput = this.watchInput.bind(this)
+    this.saveData = this.saveData.bind(this)
+    this.delData = this.delData.bind(this)
   }
 
   render() { 
@@ -21,27 +21,30 @@ class TodoList extends Component {
         <div>
           <input
             type="text"
-            onChange={this.WatchInput}
+            onChange={this.watchInput}
             // 将自身变成一个参数，传递给 this.inputA,所以能在下面找到那个 this.inputA 属性
             ref={(input)=>{this.inputA=input}}
             value={this.state.inputValue}
           />
-          <button onClick={this.SaveData}>增加</button>
+          <button onClick={this.saveData}>增加</button>
         </div>
-        <AddList list={this.state.list}/>
+        <AddList
+          list={this.state.list}
+          delfunc={this.delData}
+        />
       </Fragment>
     )
   }
 
   // 监听输入框的值
-  WatchInput () {
+  watchInput () {
     this.setState({
       inputValue: this.inputA.value
     })
   }
 
   // 保存数据
-  SaveData () {
+  saveData () {
     this.setState({
       list: [
         ...this.state.list,
@@ -52,7 +55,7 @@ class TodoList extends Component {
   }
 
   //删除方法
-  DelData (index) {
+  delData (index) {
     let list = this.state.list
     list.splice(index,1)
     this.setState({
